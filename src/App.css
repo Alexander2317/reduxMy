@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+}
+body {
+  background: #181818;
+}
+
+h1{
+  font-size: 50px;
+  margin-top: 150px;
+  margin-bottom: 0;
+  color: #fff;
+}
+
+h2 {
+  color: #fff;
+  font-size: 24px;
+}
+
+button{
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+  line-height: 50px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 50px;
+  text-align: center;
+  background: #af0000;
+  margin: 20px;
+}
+
+input{
+  width: 100px;
+  height: 50px;
+  padding: 20px;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 20px;
+  border: none;
+
+}
