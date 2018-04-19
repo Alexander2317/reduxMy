@@ -56,12 +56,12 @@ class Counter extends Component {
   }
 
   increment = () => {
-    let amount = parseInt(this.refs.amount.value);
+    let amount = parseInt(this.state.valueAmount);
     store.dispatch(inc(amount))
   }
 
   decrement = () => {
-    let amount = parseInt(this.refs.amount.value);
+    let amount = parseInt(this.state.valueAmount);
     store.dispatch(dec(amount))
   }
 
@@ -81,7 +81,7 @@ class Counter extends Component {
         <button onClick={this.decrement}>-</button>
         <br/>
         <h2>Amount</h2>
-        <input type="text" ref={'amount'} value={this.state.valueAmount} onChange={this.handleChange}/>
+        <input type="text" value={this.state.valueAmount} onChange={this.handleChange}/>
       </div>
     );
   }
