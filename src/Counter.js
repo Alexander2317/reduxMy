@@ -18,13 +18,32 @@ function reducer(state = {count: 0}, action) {
   }
 }
 
-const incAction = {type: 'INC', amount: 1};
-const decAction = {type: 'DEC', amount: 1};
-const resAction = {type: 'RES'};
+function inc(amount) {
+  return {
+    type: 'INC',
+    amount
+  }
+}
+
+function dec(amount) {
+  return {
+    type: 'DEC',
+    amount
+  }
+}
+
+function res() {
+  return {
+    type: 'RES',
+  }
+}
 
 const store = new createStore(reducer, initialState);
 
 class Counter extends Component {
+  state = {
+    valueAmount: 0
+  }
 
   componentDidMount() {
     store.subscribe(() => {
@@ -33,19 +52,23 @@ class Counter extends Component {
   }
 
   reset = () => {
-    store.dispatch(resAction)
+    store.dispatch(res())
   }
 
   increment = () => {
-    store.dispatch(incAction)
+    let amount = parseInt(this.refs.amount.value);
+    store.dispatch(inc(amount))
   }
 
   decrement = () => {
-    store.dispatch(decAction)
+    let amount = parseInt(this.refs.amount.value);
+    store.dispatch(dec(amount))
   }
 
-  handleChange = () => {
-
+  handleChange = (e) => {
+   this.setState({
+     valueAmount: e.target.value
+   })
   }
 
   render() {
@@ -58,7 +81,7 @@ class Counter extends Component {
         <button onClick={this.decrement}>-</button>
         <br/>
         <h2>Amount</h2>
-        <input type="text" value={0} onChange={this.handleChange}/>
+        <input type="text" ref={'amount'} value={this.state.valueAmount} onChange={this.handleChange}/>
       </div>
     );
   }
