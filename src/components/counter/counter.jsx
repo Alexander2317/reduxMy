@@ -69,27 +69,26 @@ class Counter extends Component {
     valueAmount: 0,
   }
 
+  update = () => this.forceUpdate()
+
   componentDidMount() {
-    store.subscribe(() => {
-      this.forceUpdate()
-    })
+    store.subscribe(this.update)
+  }
+
+  componentWillUnmount() {
+    const unsubscribe = store.subscribe(this.update)
+    unsubscribe()
   }
 
   reset = () => store.dispatch(resetAction())
 
-  increment = () => {
-    let amount = parseInt(this.state.valueAmount)
-    store.dispatch(incrementAction(amount))
-  }
+  increment = () => store.dispatch(incrementAction(this.state.valueAmount))
 
-  decrement = () => {
-    let amount = parseInt(this.state.valueAmount)
-    store.dispatch(decrementAction(amount))
-  }
+  decrement = () => store.dispatch(decrementAction(this.state.valueAmount))
 
   handleChange = (e) =>
     this.setState({
-      valueAmount: e.target.value,
+      valueAmount: parseInt(e.target.value),
     })
 
   render() {
@@ -97,19 +96,36 @@ class Counter extends Component {
 
     return (
       <section className="container">
-        <h1 className="container__title">{count}</h1>
-        <button className="container__button" onClick={this.increment}>
+        <h1 data-testid="title" className="container__title">
+          {count}
+        </h1>
+        <button
+          data-testid="button-increment"
+          className="container__button"
+          onClick={this.increment}
+        >
           +
         </button>
-        <button className="container__button" onClick={this.reset}>
+        <button
+          data-testid="button-reset"
+          className="container__button"
+          onClick={this.reset}
+        >
           reset
         </button>
-        <button className="container__button" onClick={this.decrement}>
+        <button
+          data-testid="button-decrement"
+          className="container__button"
+          onClick={this.decrement}
+        >
           -
         </button>
         <br />
-        <h2 className="container__subtitle">Amount</h2>
+        <h2 data-testid="subtitle" className="container__subtitle">
+          Amount
+        </h2>
         <input
+          data-testid="input"
           className="container__input"
           type="text"
           value={this.state.valueAmount}
